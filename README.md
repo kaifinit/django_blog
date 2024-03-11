@@ -31,7 +31,7 @@ Django Blog is a web application that allows users to create, view, and manage b
 3. Create a virtual environment (Optional):
 
 ```bash
-  virtualenv env
+  virtualenv venv
 ```
 or
 
