@@ -36,9 +36,9 @@ Django Blog is a web application that allows users to create, view, and manage b
 or
 
 ```bash
-  py -m venv env
+  py -m venv venv
 ```
-That will create a new folder `env` in your project directory.
+That will create a new folder `venv` in your project directory.
 
 3. Activate virtual environment (Optional):
 
