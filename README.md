@@ -55,7 +55,7 @@ That will create a new folder `venv` in your project directory.
 5. Now you can run the project with this command:
 
 ```bash
-  python manage.py runserver
+  py manage.py runserver
 ```
 
 ## Tech Stack
