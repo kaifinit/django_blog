@@ -1,0 +1,215 @@
+{% extends "main/base.html" %} {% load static %}
+{% block main %}
+
+  <div class="hero overlay inner-page bg-primary py-5">
+    <div class="container">
+      <div class="row align-items-center justify-content-center text-center pt-5">
+        <div class="col-lg-6">
+          <h1 class="heading text-white mb-3" data-aos="fade-up">Blog</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} <hr/>
+  {{paginated_posts.has_next}}
+  {{paginated_posts.has_previous}}
+  <hr/> {% endcomment %}
+  <div class="section search-result-wrap">
+    <div class="container">
+      
+      <div class="row posts-entry">
+        <div class="col-lg-8">
+          {% for post in posts %}
+          <div class="blog-entry d-flex blog-entry-search-item">
+            <a href="single.html" class="img-link me-4">
+              <img src="{% static "main/images/img_1_sq.jpg" %}" alt="Image" class="img-fluid">
+            </a>
+            <div>
+              <span class="date">{{post.created_at}} &bullet; <a href="#">{{post.category|title}}</a></span>
+              <h2><a href="single.html">{{post.title}}</a></h2>
+              <p>{{post.overview|truncatechars:100}}</p>
+              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+            </div>
+          </div>
+          {% endfor %}
+
+          {% comment %} <div class="blog-entry d-flex blog-entry-search-item">
+            <a href="single.html" class="img-link me-4">
+              <img src="{% static "main/images/img_2_sq.jpg" %}" alt="Image" class="img-fluid">
+            </a>
+            <div>
+              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
+              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
+              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+            </div>
+          </div>
+
+          <div class="blog-entry d-flex blog-entry-search-item">
+            <a href="single.html" class="img-link me-4">
+              <img src="{% static "main/images/img_3_sq.jpg" %}" alt="Image" class="img-fluid">
+            </a>
+            <div>
+              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
+              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
+              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+            </div>
+          </div>
+
+          <div class="blog-entry d-flex blog-entry-search-item">
+            <a href="single.html" class="img-link me-4">
+              <img src="{% static "main/images/img_4_sq.jpg" %}" alt="Image" class="img-fluid">
+            </a>
+            <div>
+              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
+              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
+              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+            </div>
+          </div>
+
+          <div class="blog-entry d-flex blog-entry-search-item">
+            <a href="single.html" class="img-link me-4">
+              <img src="{% static "main/images/img_5_sq.jpg" %}" alt="Image" class="img-fluid">
+            </a>
+            <div>
+              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
+              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
+              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+            </div>
+          </div> {% endcomment %}
+
+          <div class="row text-start pt-5 border-top">
+            <div class="col-md-12">
+              <div class="custom-pagination">
+                {% if posts.has_previous %}
+                  <a href="?page={{ posts.previous_page_number }}">&lt;</a>
+                {% else %}
+                <span>&lt;</span>
+                {% endif %}
+                {% if request.GET.page|default:1|add:0 == 1 %}
+                <span>1</span>
+                {% else %}
+                <a href="?page=1" >1</a>
+                {% endif %}
+                <span>...</span>
+                {% for page in pages %}
+                {% if request.GET.page|default:1|add:0 == page %}
+                <span>{{page}}</span>
+                {% else %}
+                <a href="?page={{page}}" >{{page}}</a>
+                {% endif %}
+                {% endfor %}
+                <span>...</span> 
+                {% if request.GET.page|default:1|add:0 == paginator.num_pages %}
+                <span>{{paginator.num_pages}}</span>
+                {% else %}
+                <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+                {% endif %}             
+                {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">&gt;</a>
+                {% else %}
+                <span>&gt;</span>
+                {% endif %}
+              </div>
+              {% comment %} <div class="custom-pagination">
+                <span>1</span>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <span>...</span>
+                <a href="#">15</a>
+              </div> {% endcomment %}
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-4 sidebar">
+
+          <div class="sidebar-box search-form-wrap mb-4">
+            <form action="#" class="sidebar-search-form">
+              <span class="bi-search"></span>
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+            </form>
+          </div>
+          <!-- END sidebar-box -->
+          <div class="sidebar-box">
+            <h3 class="heading">Popular Posts</h3>
+            <div class="post-entry-sidebar">
+              <ul>
+                <li>
+                  <a href="">
+                    <img src="{% static "main/images/img_1_sq.jpg" %}" alt="Image placeholder" class="me-4 rounded">
+                    <div class="text">
+                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                      <div class="post-meta">
+                        <span class="mr-2">March 15, 2018 </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="{% static "main/images/img_2_sq.jpg" %}" alt="Image placeholder" class="me-4 rounded">
+                    <div class="text">
+                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                      <div class="post-meta">
+                        <span class="mr-2">March 15, 2018 </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="">
+                    <img src="{% static "main/images/img_3_sq.jpg" %}" alt="Image placeholder" class="me-4 rounded">
+                    <div class="text">
+                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+                      <div class="post-meta">
+                        <span class="mr-2">March 15, 2018 </span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- END sidebar-box -->
+
+          <div class="sidebar-box">
+            <h3 class="heading">Categories</h3>
+            <ul class="categories">
+              <li><a href="#">Food <span>(12)</span></a></li>
+              <li><a href="#">Travel <span>(22)</span></a></li>
+              <li><a href="#">Lifestyle <span>(37)</span></a></li>
+              <li><a href="#">Business <span>(42)</span></a></li>
+              <li><a href="#">Adventure <span>(14)</span></a></li>
+            </ul>
+          </div>
+          <!-- END sidebar-box -->
+
+          <div class="sidebar-box">
+            <h3 class="heading">Tags</h3>
+            <ul class="tags">
+              <li><a href="#">Travel</a></li>
+              <li><a href="#">Adventure</a></li>
+              <li><a href="#">Food</a></li>
+              <li><a href="#">Lifestyle</a></li>
+              <li><a href="#">Business</a></li>
+              <li><a href="#">Freelancing</a></li>
+              <li><a href="#">Travel</a></li>
+              <li><a href="#">Adventure</a></li>
+              <li><a href="#">Food</a></li>
+              <li><a href="#">Lifestyle</a></li>
+              <li><a href="#">Business</a></li>
+              <li><a href="#">Freelancing</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock main %}

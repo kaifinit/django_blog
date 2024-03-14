@@ -1,0 +1,75 @@
+{% load static %}
+<div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close">
+            <span class="icofont-close js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div>
+
+<nav class="site-nav">
+    <div class="container">
+        <div class="menu-bg-wrap">
+            <div class="site-navigation">
+                <div class="row g-0 align-items-center">
+                    <div class="col-2">
+                        <a href="{% url "main" %}" class="logo m-0 float-start">Blogy<span class="text-primary">.</span></a>
+                    </div>
+                    <div class="col-8 text-center">
+                        <form action="#" class="search-form d-inline-block d-lg-none">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="bi-search"></span>
+                        </form>
+                        
+                        <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
+                            {% url "main" as main_url %}
+                            <li {% if main_url == request.path_info %}class="active"{% endif %}><a href="{{main_url}}">Home</a></li>
+                            {% url "pages" as pages_url %}
+                            <li class="has-children {% if pages_url in request.path_info %}active{% endif %}">
+                                <a href="{{pages_url}}">Pages</a>
+                                <ul class="dropdown">
+                                    {% url "search" as search_url %}
+                                    <li {% if search_url == request.path_info %}class="active"{% endif %}><a href="{{search_url}}">Search Result</a></li>
+                                    {% url "posts" as posts_url %}
+                                    <li {% if posts_url == request.path_info %}class="active"{% endif %}><a href="{{posts_url}}">Blog</a></li>
+                                    {% url "single" as single_url %}
+                                    <li {% if single_url == request.path_info %}class="active"{% endif %}><a href="{{single_url}}">Blog Single</a></li>
+                                    {% url "category" as category_url %}
+                                    <li {% if category_url == request.path_info %}class="active"{% endif %}><a href="{{category_url}}">Category</a></li>
+                                    {% url "about" as about_url %}
+                                    <li {% if about_url == request.path_info %}class="active"{% endif %}><a href="{{about_url}}">About</a></li>
+                                    {% url "contact" as contact_url %}
+                                    <li {% if contact_url == request.path_info %}class="active"{% endif %}><a href="{{contact_url}}">Contact Us</a></li>
+                                    <li><a href="#">Menu One</a></li>
+                                    <li><a href="#">Menu Two</a></li>
+                                    <li class="has-children">
+                                        <a href="#">Dropdown</a>
+                                        <ul class="dropdown">
+                                            <li><a href="#">Sub Menu One</a></li>
+                                            <li><a href="#">Sub Menu Two</a></li>
+                                            <li><a href="#">Sub Menu Three</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="{{category_url}}">Culture</a></li>
+                            <li><a href="{{category_url}}">Business</a></li>
+                            <li><a href="{{category_url}}">Politics</a></li>
+                            {% comment %} <li><a href="{% url "add_posts" %}">add_posts</a></li> {% endcomment %}
+                        </ul>
+                    </div>
+                    <div class="col-2 text-end">
+                        <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
+                            <span></span>
+                        </a>
+                        <form action="#" class="search-form d-none d-lg-inline-block">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="bi-search"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
