@@ -33,8 +33,6 @@
                                     <li {% if search_url == request.path_info %}class="active"{% endif %}><a href="{{search_url}}">Search Result</a></li>
                                     {% url "posts" as posts_url %}
                                     <li {% if posts_url == request.path_info %}class="active"{% endif %}><a href="{{posts_url}}">Blog</a></li>
-                                    {% url "single" as single_url %}
-                                    <li {% if single_url == request.path_info %}class="active"{% endif %}><a href="{{single_url}}">Blog Single</a></li>
                                     {% url "category" as category_url %}
                                     <li {% if category_url == request.path_info %}class="active"{% endif %}><a href="{{category_url}}">Category</a></li>
                                     {% url "about" as about_url %}
@@ -63,8 +61,8 @@
                         <a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
                             <span></span>
                         </a>
-                        <form action="#" class="search-form d-none d-lg-inline-block">
-                            <input type="text" class="form-control" placeholder="Search...">
+                        <form action="{% url "search" %}" class="search-form d-none d-lg-inline-block">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
                             <span class="bi-search"></span>
                         </form>
                     </div>

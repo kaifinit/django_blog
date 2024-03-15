@@ -4,81 +4,64 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<div class="heading">Search: 'Thought'</div>
+					<div class="heading">Search: '{{request.GET.q}}'</div>
 				</div>
 			</div>
+			{{posts}}
+			
+			
 			<div class="row posts-entry">
 				<div class="col-lg-8">
+					{% for post in posts %}
+			
 					<div class="blog-entry d-flex blog-entry-search-item">
-						<a href="single.html" class="img-link me-4">
+						<a href="{% url "post" post.id %}" class="img-link me-4">
 							<img src="{% static "main/images/img_1_sq.jpg" %}" alt="Image" class="img-fluid">
 						</a>
 						<div>
-							<span class="date">Apr. 14th, 2022</span>
-							<h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-							<p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+							<span class="date">{{post.created_at}}</span>
+							<h2><a href="{% url "post" post.id %}">{{post.title}}</a></h2>
+							<p>{{post.overview|truncatechars:100}}</p>
+							<p><a href="{% url "post" post.id %}" class="btn btn-sm btn-outline-primary">Read More</a></p>
 						</div>
 					</div>
+					{% endfor %}
+					
 
-					<div class="blog-entry d-flex blog-entry-search-item">
-						<a href="single.html" class="img-link me-4">
-							<img src="{% static "main/images/img_2_sq.jpg" %}" alt="Image" class="img-fluid">
-						</a>
-						<div>
-							<span class="date">Apr. 14th, 2022</span>
-							<h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-							<p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-						</div>
-					</div>
-
-					<div class="blog-entry d-flex blog-entry-search-item">
-						<a href="single.html" class="img-link me-4">
-							<img src="{% static "main/images/img_3_sq.jpg" %}" alt="Image" class="img-fluid">
-						</a>
-						<div>
-							<span class="date">Apr. 14th, 2022</span>
-							<h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-							<p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-						</div>
-					</div>
-
-					<div class="blog-entry d-flex blog-entry-search-item">
-						<a href="single.html" class="img-link me-4">
-							<img src="{% static "main/images/img_4_sq.jpg" %}" alt="Image" class="img-fluid">
-						</a>
-						<div>
-							<span class="date">Apr. 14th, 2022</span>
-							<h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-							<p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-						</div>
-					</div>
-
-					<div class="blog-entry d-flex blog-entry-search-item">
-						<a href="single.html" class="img-link me-4">
-							<img src="{% static "main/images/img_5_sq.jpg" %}" alt="Image" class="img-fluid">
-						</a>
-						<div>
-							<span class="date">Apr. 14th, 2022</span>
-							<h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-							<p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-						</div>
-					</div>
 
 					<div class="row text-start pt-5 border-top">
 						<div class="col-md-12">
 							<div class="custom-pagination">
+								{% if posts.has_previous %}
+								  <a href="?page={{ posts.previous_page_number }}">&lt;</a>
+								{% else %}
+								<span>&lt;</span>
+								{% endif %}
+								{% if request.GET.page|default:1|add:0 == 1 %}
 								<span>1</span>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
+								{% else %}
+								<a href="?page=1" >1</a>
+								{% endif %}
 								<span>...</span>
-								<a href="#">15</a>
-							</div>
+								{% for page in pages %}
+								{% if request.GET.page|default:1|add:0 == page %}
+								<span>{{page}}</span>
+								{% else %}
+								<a href="?page={{page}}" >{{page}}</a>
+								{% endif %}
+								{% endfor %}
+								<span>...</span> 
+								{% if request.GET.page|default:1|add:0 == paginator.num_pages %}
+								<span>{{paginator.num_pages}}</span>
+								{% else %}
+								<a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+								{% endif %}             
+								{% if posts.has_next %}
+								<a href="?page={{ posts.next_page_number }}">&gt;</a>
+								{% else %}
+								<span>&gt;</span>
+								{% endif %}
+							  </div>
 						</div>
 					</div>
 

@@ -15,6 +15,8 @@ class Post(models.Model):
     overview = models.CharField(max_length=400)
     content = models.TextField()
     
+    likes = models.PositiveSmallIntegerField(default=0)
+    
     author = models.ForeignKey(User, on_delete=models.CASCADE)  # Example: Associate posts with users
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -22,4 +24,12 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
