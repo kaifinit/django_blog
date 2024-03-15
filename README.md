@@ -20,7 +20,7 @@ Django Blog is a web application that allows users to create, view, and manage b
 2. Navigate to the project directory:
 
 ```bash
-  cd my-project
+  cd django_blog
 ```
 3. Install a virtual environment (Optional):
 
